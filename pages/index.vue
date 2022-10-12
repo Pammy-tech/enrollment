@@ -16,7 +16,6 @@
                             <img class="rounded-sm" src="ctulogo.png" width="100px" height="100px">        
                           </div> 
                                 <h4 class="text-dark mb-4 mt">LOGIN</h4>
-                                
                             <form class="user">
                                 <div class="mb-3"><input class="form-control form-control-user" type="email" placeholder="Email Address/Username" name="email" /></div>
                                 <div class="mb-1"><input class="form-control form-control-user" type="password" placeholder="Password" name="password" /></div> 
@@ -30,13 +29,8 @@
                                 </div>
                                 <hr>
                                 <div class="text-center"> 
-                                  <router-link to="/register">No Account? Register here</router-link>
-                                  <a class="small">
-                                  </a>
-                                  
+                                  <router-link to="/register">No Account? Register here</router-link>                                  
                                 </div>
-                                
-
                             </form>
                         </div>
                     </div>
