@@ -25,7 +25,7 @@
                             </div>
                           </div>
                           <div class="d-grid gap-2 col-6 mx-auto">
-                            <button class="btn btn-outline-danger d-block btn-user mb-3 w-100" type="submit">Register Account</button>
+                            <button class="btn btn-outline-danger d-block btn-user mb-3 w-100" type="submit">Login</button>
                           </div>
                           <hr>
                           <div class="text-center"> 
