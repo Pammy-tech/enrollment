@@ -1,5 +1,5 @@
 <template>
-<body class="bg">
+<body>
     <div class="container">
         <div class="card shadow-lg o-hidden border-0 my-5">
             <div class="card-body p-0">
@@ -25,11 +25,11 @@
                             </div>
                           </div>
                           <div class="d-grid gap-2 col-6 mx-auto">
-                            <button class="btn btn-outline-danger d-block btn-user mb-3 w-100" type="submit">Login</button>
+                          <NuxtLink to="/homepage" class="btn btn-outline-danger d-block btn-user mb-3 w-100" type="submit">Login</NuxtLink>
                           </div>
                           <hr>
                           <div class="text-center"> 
-                            <router-link to="/register">No Account? Register here</router-link>                                  
+                            <NuxtLink to="/register">No Account? Register here</NuxtLink>                                  
                           </div>
                         </form>
                       </div>
