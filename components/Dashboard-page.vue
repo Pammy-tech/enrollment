@@ -63,14 +63,14 @@
         export default {
           data() {
           return {
-            item: {name: "", desc: "", edit: false},
+            item: {name: "", dob: "", course: "", address: "", edit: false},
             items: []
           }
         },
         methods:{
           addItem() {
             this.items.push({
-              name:this.item.name, desc:this.item.desc, edit: false}
+              name:this.item.name, dob:this.item.dob, course:this.item.course, address:this.item.address, edit: false}
               );
             this.item = [];
           },
