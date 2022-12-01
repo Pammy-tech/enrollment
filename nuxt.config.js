@@ -9,14 +9,14 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
-      { rel: 'icon', 
-        type: 'image/x-icon', 
-        href: '/favicon.ico' }, 
+      { rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico' },
 
-      { rel: 'stylesheet', 
+      { rel: 'stylesheet',
         href: '/css/bootstrap.min.css' },
-        
-      { rel: 'stylesheet', 
+
+      { rel: 'stylesheet',
         href: '/css/custom.css' }
 
   ]
@@ -38,6 +38,8 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
   ],
+
+
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

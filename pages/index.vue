@@ -8,17 +8,17 @@
                       <div class="image">
                         <div class="imageoverlay">
                         </div>
-                      </div>       
+                      </div>
                     </div>
                     <div class="col-lg-7">
                       <div class="p-5">
                         <div class="text-center">
-                          <img class="rounded-sm" src="ctulogo.png" width="100px" height="100px">        
-                        </div> 
+                          <img class="rounded-sm" src="ctulogo.png" width="100px" height="100px">
+                        </div>
                         <h4 class="text-dark mb-4 mt">LOGIN</h4>
                         <form class="user">
                           <div class="mb-3"><input class="form-control form-control-user" type="email" placeholder="Email Address/Username" name="email" /></div>
-                          <div class="mb-1"><input class="form-control form-control-user" type="password" placeholder="Password" name="password" /></div> 
+                          <div class="mb-1"><input class="form-control form-control-user" type="password" placeholder="Password" name="password" /></div>
                           <div class="mb-3">
                             <div class="text-right">
                               <a class="small">Forgot Password?</a>
@@ -28,8 +28,8 @@
                           <NuxtLink to="/homepage" class="btn btn-outline-danger d-block btn-user mb-3 w-100" type="submit">Login</NuxtLink>
                           </div>
                           <hr>
-                          <div class="text-center"> 
-                            <NuxtLink to="/register">No Account? Register here</NuxtLink>                                  
+                          <div class="text-center">
+                            <NuxtLink to="/register">No Account? Register here</NuxtLink>
                           </div>
                         </form>
                       </div>
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 </body>
 </template>
 
