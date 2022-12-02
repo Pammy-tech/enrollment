@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <nav id="sidebar" class="p-3" style="background-color: orange">
-                <div class="sidebar-header">
-                    <h3>Dashboard</h3>
-                </div>
+  <div>
+    <nav id="sidebar" class="p-3" style="background-color: orange">
+      <div class="sidebar-header">
+        <h3>Dashboard</h3>
+      </div>
 
         <ul id="accordionSidebar" class="navbar-nav text-light">
 
@@ -16,78 +16,108 @@
     </ul>
     </nav>
     <div class="container" style="padding: 4rem; margin-left:250px">
-    <div>
+      <div>
       <h3>Dashboard</h3>
       <hr>
       <h4>Add Students</h4>
-    </div>
-        <br>
-        <div class="form-inline" action="#">
-          <input type="text" id="form-name" v-model="item.name" placeholder="Name" class="form-control">
-          <input type="date" v-model="item.dob" class="form-control">
-          <input type="text" v-model="item.course" placeholder="Course" class="form-control">
-          <input type="text" v-model="item.address" placeholder="Address" class="form-control" v-on:keyup.enter="addItem">
-          <button @click="addItem" class="btn btn-warning">Add</button>
-          </div>
-          <br><br>
-          <table class="table table-striped table-bordered table-sm">
-            <thead>
-              <th>Name</th>
-              <th>DOB</th>
-              <th>Course</th>
-              <th>Address</th>
-              <th class="col-2">Action</th>
-            </thead>
-            <tr v-for="item in items" :key="item.name">
-              <td>
-                <input v-if="item.edit" type="text" v-model="item.name"  v-on:keyup.enter="item.edit = !item.edit">
-                <span v-else>{{item.name}} </span>
-              </td>
-              <td>
-                <input v-if="item.edit" type="date" v-model="item.dob" v-on:keyup.enter="item.edit = !item.edit">
-                <span v-else>{{item.dob}} </span>
-              </td>
-              <td>
-                <input v-if="item.edit" type="text" v-model="item.course" v-on:keyup.enter="item.edit = !item.edit">
-                <span v-else>{{item.course}} </span>
-              </td>
-              <td>
-                <input v-if="item.edit" type="text" v-model="item.address" v-on:keyup.enter="item.edit = !item.edit">
-                <span v-else>{{item.address}} </span>
-              </td>
-                <button @click="item.edit = !item.edit" class="btn btn-primary">Edit</button>
-                <button @click="removeItem(index)" class="btn btn-danger">Delete</button>
-            </tr>
-          </table>
       </div>
-    </div>
-    </template>
+      <br>
+      <div class="form-inline" action="#">
+      <input type="text" id="form-name" v-model="item.name" placeholder="First Name" class="form-control">
+      <input type="text" v-model="item.lastname" placeholder="Last Name" class="form-control">
+      <button @click="addItem" class="btn btn-dark"><i class="fas fa-plus">Add</i></button>
+        </div>
+      <br><br>
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-light">
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th class="col-2">Edit/Delete</th>
+        </thead>
+        <tr v-for="item in items" :key="item.name">
+          <td>
+            <input v-if="item.edit" type="text" v-model="item.name">
+            <span v-else>{{item.name}} </span>
+          </td>
+          <td>
+            <input v-if="item.edit" type="text" v-model="item.lastname">
+            <span v-else>{{item.lastname}} </span>
+          </td>
+          <td><button @click="ItemEdit(item)" class="btn btn-info"><i class="far fa-edit">edit</i></button>
+            <button @click="removeItem(item.id)" class="btn btn-danger"><i class="far fa-trash-alt">delete</i></button></td>
+        </tr>
+      </table>
+  </div>
+  </div>
 
-    <script scope>
-        export default {
-          data() {
-          return {
-            item: {name: "", dob: "", course: "", address: "", edit: false},
-            items: []
-          }
-        },
-        methods:{
-          addItem() {
-            this.items.push({
-              name:this.item.name, dob:this.item.dob, course:this.item.course, address:this.item.address, edit: false}
-              );
-            this.item = [];
-          },
-          removeItem(index){
-            this.items.splice(index, 1)
-          }
-        }
-        }
-      </script>
+  </template>
 
-      <style scoped>
-      .form-inline input {
-        margin-right:12px;
+  <script scope>
+  let url = "http://localhost:3001/user";
+    export default {
+      data() {
+      return {
+        item: {name: "", lastname: "", edit: false},
+        items: [],
+        tempData: []
       }
-      </style>
+    },
+    methods:{
+      async addItem() {
+        await this.$axios.$post(url + '/create', {name: this.item.name, lastname: this.item.lastname})
+        .then((res) => {
+          console.log(res);
+          this.GetAllData();
+        })
+        .catch((err) => console.log(err));
+        this.item = [];
+      },
+      async removeItem(id){
+        await this.$axios.$post(url + '/delete', {id: id})
+        .then((res) => {
+          console.log(res);
+          this.GetAllData();
+        })
+        .catch((err) => console.log(err));
+      },
+      async GetAllData(){
+        this.items = await this.$axios.$get(url)
+      .then((res) => {
+        console.log(res);
+        this.tempData = res;
+        console.log(this.items);
+      })
+      .catch((err) => console.log(err));
+      this.items = this.tempData;
+      },
+      async ItemEdit(item) //For Updating
+      {
+        if(!item.edit)
+        {
+          item.edit = !item.edit
+        }
+        else
+        {
+          item.edit = !item.edit
+          await this.$axios.$post(url + '/update', {id: item.id, name: item.name, lastname: item.lastname})
+          .then((res) => {
+            console.log(res);
+            this.GetAllData();
+          })
+          .catch((err) => console.log(err));
+        }
+      }
+    },
+    async mounted(){
+      await this.GetAllData();
+    }
+    }
+  </script>
 
+<style scoped>
+.form-inline input {
+  margin-right:8px;
+}
+
+
+</style>
