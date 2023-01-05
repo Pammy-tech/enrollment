@@ -34,17 +34,17 @@
           <th>Last Name</th>
           <th class="col-2">Edit/Delete</th>
         </thead>
-        <tr v-for="i in items" :key="i.name">
+        <tr v-for="item in items" v-bind:key="item.name">
           <td>
-            <input v-if="i.edit" v-model="i.name" type="text">
-            <span v-else>{{i.name}} </span>
+            <input v-if="item.edit" v-model="item.name" type="text">
+            <span v-else>{{item.name}} </span>
           </td>
           <td>
-            <input v-if="i.edit" v-model="i.lastname" type="text">
-            <span v-else>{{i.lastname}} </span>
+            <input v-if="item.edit" v-model="item.lastname" type="text">
+            <span v-else>{{item.lastname}} </span>
           </td>
-          <td><button class="btn btn-info" @click="ItemEdit(i)"><i class="far fa-edit">edit</i></button>
-            <button class="btn btn-danger" @click="removeItem(i)"><i class="far fa-trash-alt">delete</i></button></td>
+          <td><button class="btn btn-info" @click="ItemEdit(item)"><i class="far fa-edit">edit</i></button>
+            <button class="btn btn-danger" @click="removeItem(item)"><i class="far fa-trash-alt">delete</i></button></td>
         </tr>
       </table>
   </div>
@@ -53,7 +53,7 @@
   </template>
 
   <script scope>
-  const url = "http://localhost:3002/user";
+  const url = "http://localhost:3002/users";
     export default {
       data() {
       return {
@@ -64,9 +64,11 @@
     },
     methods:{
       async addItem() {
+        console.log(this.item.id);
         await this.$axios.$post(url + '/insert', this.item)
         .then((res) => {
           console.log(res);
+          this.item = {id: 0, name: "", lastname: "", edit: false};
           this.GetAllData();
         })
         .catch((err) => console.log(err));
@@ -87,10 +89,28 @@
         await this.$axios.$get(url)
       .then((res) => {
         console.log(res);
-        this.items = res;
+        this.tempData = res;
       })
       .catch((err) => console.log(err));
+      this.items = this.tempData;
       this.GetCurrentID();
+      },
+      async ItemEdit(item)
+      {
+        if(!item.edit)
+        {
+          item.edit = !item.edit
+        }
+        else
+        {
+          item.edit = !item.edit
+          console.log(item);
+          await this.$axios.$post(url + '/update', item)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => console.log(err));
+        }
       }
     },
     async mounted(){

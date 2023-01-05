@@ -1,31 +1,28 @@
-const students = require(`./MongoConnect`).db(`ScriptDev`).collection(`Students`);
+//Data From Mongo
+const user = require('./MongoConnect.js').db('ScriptDev').collection('Students');
 
 
-//Get All Documens from Account Collection
-const GetAllStudent = async () => {
-  const cursor = await students.find();
-  return cursor.toArray();
+const GetUsers = async () => {
+    const cursor = await user.find();
+    return cursor.toArray();
 };
 
-//Insert New Document
-const InsertStudent =  async (id, name, course, year, section) => {
-  return await students.insertOne({id: id, name: name, course: course, year: year, section: section, edit: false});
+//Insert new document
+const insertAccount = async(id, name, lastname) => {
+    return await user.insertOne({id: parseInt(id), name: name, lastname: lastname, edit: false});
 };
 
 //Update Document
-const UpdateStudent = async (id, name, course, year, section) => {
-  return await students.updateOne({id: parseInt(id)}, {$set: {
-      name: name,
-      course: course,
-      year: year,
-      section: section
-  }});
+const updateAccount = async(id, name, lastname) =>{
+    return await user.updateOne({id: parseInt(id)}, {$set:{
+        name: name,
+        lastname: lastname
+    }});
 };
 
 //Delete a Document
-const DeleteStudent =  async (id) => {
-  return await students.deleteOne({id: parseInt(id)});
+const deleteAccount = async (id) => {
+    return await user.deleteOne({id: parseInt(id)});
 };
 
-
-module.exports = {GetAllStudent, InsertStudent, UpdateStudent, DeleteStudent};
+module.exports = {GetUsers, insertAccount, updateAccount, deleteAccount};
