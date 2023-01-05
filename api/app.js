@@ -17,7 +17,6 @@ app.listen(3001, function() {
 
 
 let mongo = require(`./MongoApi.js`);
-const { MongoUnexpectedServerResponseError } = require('mongodb');
 const mongoapp = new koa();
 
 mongoapp.use(cors());
