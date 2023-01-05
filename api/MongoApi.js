@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const {GetAllStudent, InsertStudent, UpdateStudent, DeleteStudent} = require('./mongo/MongoData');
 
 const router = new Router({
-    prefix: '/users'
+    prefix: '/user'
 });
 
 //Get All Documens from Account Collection
@@ -49,6 +49,7 @@ router.post('/update', async (ctx, next) => {
             ctx.request.body.year,
             ctx.request.body.section
         );
+
         if(res)
         {
             ctx.response.status = 200;
